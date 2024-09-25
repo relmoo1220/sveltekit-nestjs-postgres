@@ -11,8 +11,10 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
+
+  app.enableCors({ origin: '*' });
   // Register @fastify/multipart plugin
   app.register(FastifyMultipart);
-  await app.listen(3000);
+  await app.listen(3000, '0.0.0.0'); // Listen on all interfaces
 }
 bootstrap();

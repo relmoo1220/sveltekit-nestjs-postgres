@@ -21,4 +21,4 @@ RUN npm install -g @nestjs/cli
 EXPOSE 3000
 
 # Command to run the app in development mode with hot-reloading
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]

@@ -12,3 +12,5 @@ backend using REST API
 * TypeORM
 * TailWindCSS
 * Jest
+
+.env is git ignored by default but for project showcase purpose we did not git ignore it

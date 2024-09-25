@@ -19,7 +19,6 @@ services:
       - DATABASE_NAME=mydb
     command: npm run start:dev
     depends_on:
-      - frontend
       - db
     networks:
       - app-network
@@ -37,6 +36,8 @@ services:
     environment:
       - NODE_ENV=development
     command: npm run dev -- --host
+    depends_on:
+      - backend
     networks:
       - app-network
 
