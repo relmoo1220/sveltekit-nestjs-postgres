@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { FileUploaderModule } from './file-uploader/file-uploader.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Post } from './file-uploader/entities/file-uploader.entity';
 import { UserModule } from './user/user.module';
+import { UploadModule } from './upload/upload.module';
+import { Upload } from './upload/entities/upload.entity';
 
 @Module({
   imports: [
-    FileUploaderModule,
+    UploadModule,
     TypeOrmModule.forRoot({
       type: 'postgres', // or 'mysql', 'sqlite' etc.
       host: 'postgres-db',
@@ -16,11 +16,12 @@ import { UserModule } from './user/user.module';
       username: 'postgres',
       password: '1234',
       database: 'mydb',
-      entities: [Post], // your entities here
+      entities: [Upload], // your entities here
       synchronize: true, // Automatically sync entity schema with DB (disable in production)
       autoLoadEntities: true,
     }),
     UserModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
