@@ -13,6 +13,9 @@
   export let data;
   const uploads = data.entries;
 
+  // Local variable for the search term entered in the search bar
+  let localSearchTerm: string = "";
+
   // headers variable to store the keys of the first object in the items array
   let headers: string[] = [];
 
@@ -84,12 +87,9 @@
   // Function to remove the specific row
   async function removeItem(id: number) {
     try {
-      const response = await fetch(
-        `${apiBaseUrl}/upload/delete/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${apiBaseUrl}/upload/delete/${id}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
         // Re-fetch list of items after a successful delete of the entry
@@ -107,6 +107,28 @@
   async function handleSelectEntry(id: number) {
     // Navigate to the update page for the selected entry
     goto(`/update/${id}`);
+  }
+
+  // Function to update the items based on the search term
+  async function updateFilteredItems(term: string = "") {
+    try {
+      const response = await fetch(
+        `${apiBaseUrl}/upload/search?term=${encodeURIComponent(term)}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        items = data;
+        console.log("Successful read. Status: ", response.status);
+      } else {
+        console.error("Failed to read data. Status: ", response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 </script>
 
@@ -134,35 +156,47 @@
     <Button class="mt-2" on:click={uploadFile}>Upload</Button>
   </SectionWrapper>
   <SectionWrapper>
-    <Input type="text" placeholder="Search" class="max-w-xs m-10" />
+    <div class="flex items-center">
+      <Input
+        type="text"
+        placeholder="Search"
+        bind:value={localSearchTerm}
+        class="max-w-xs m-10"
+      />
+      <Button on:click={() => updateFilteredItems(localSearchTerm)}>Search</Button>
+    </div>
   </SectionWrapper>
   <SectionWrapper>
-    <Table.Root>
-      <Table.Caption>A list of uploaded data.</Table.Caption>
-      <Table.Header>
-        <Table.Row>
-          {#each headers as header}
-            <Table.Head>{header}</Table.Head>
-          {/each}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {#each items as item}
+    <div class="overflow-auto max-h-[500px]">
+      <Table.Root>
+        <Table.Caption>A list of uploaded data.</Table.Caption>
+        <Table.Header>
           <Table.Row>
-            <Table.Cell class="text-gray-400">{item.id}</Table.Cell>
-            <Table.Cell class="text-gray-400">{item.postId}</Table.Cell>
-            <Table.Cell class="text-gray-400">{item.name}</Table.Cell>
-            <Table.Cell class="text-gray-400">{item.email}</Table.Cell>
-            <Table.Cell class="text-gray-400">{item.body}</Table.Cell>
-            <Table.Cell>
-              <Button on:click={() => handleSelectEntry(item.id)}>Select</Button>
-            </Table.Cell>
-            <Table.Cell>
-              <Button on:click={() => removeItem(item.id)}>Remove</Button>
-            </Table.Cell>
+            {#each headers as header}
+              <Table.Head>{header}</Table.Head>
+            {/each}
           </Table.Row>
-        {/each}
-      </Table.Body>
-    </Table.Root>
+        </Table.Header>
+        <Table.Body>
+          {#each items as item}
+            <Table.Row>
+              <Table.Cell class="text-gray-400">{item.id}</Table.Cell>
+              <Table.Cell class="text-gray-400">{item.postId}</Table.Cell>
+              <Table.Cell class="text-gray-400">{item.name}</Table.Cell>
+              <Table.Cell class="text-gray-400">{item.email}</Table.Cell>
+              <Table.Cell class="text-gray-400">{item.body}</Table.Cell>
+              <Table.Cell>
+                <Button on:click={() => handleSelectEntry(item.id)}
+                  >Select</Button
+                >
+              </Table.Cell>
+              <Table.Cell>
+                <Button on:click={() => removeItem(item.id)}>Remove</Button>
+              </Table.Cell>
+            </Table.Row>
+          {/each}
+        </Table.Body>
+      </Table.Root>
+    </div>
   </SectionWrapper>
 </div>
