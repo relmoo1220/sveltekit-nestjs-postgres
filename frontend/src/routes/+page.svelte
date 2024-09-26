@@ -130,6 +130,11 @@
       console.error("Error:", error);
     }
   }
+
+  // Redirect to create page
+  function handleCreateRedirect() {
+    window.location.href = "/create";
+  }
 </script>
 
 <div class="h-screen w-full bg-slate-950">
@@ -163,7 +168,9 @@
         bind:value={localSearchTerm}
         class="max-w-xs m-10"
       />
-      <Button on:click={() => updateFilteredItems(localSearchTerm)}>Search</Button>
+      <Button on:click={() => updateFilteredItems(localSearchTerm)}
+        >Search</Button
+      >
     </div>
   </SectionWrapper>
   <SectionWrapper>
@@ -197,6 +204,9 @@
           {/each}
         </Table.Body>
       </Table.Root>
+    </div>
+    <div>
+      <Button class="mt-2" on:click={handleCreateRedirect}>Create</Button>
     </div>
   </SectionWrapper>
 </div>
