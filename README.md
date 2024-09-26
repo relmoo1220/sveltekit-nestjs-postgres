@@ -1,3 +1,5 @@
+![Cover Image](cover.png)
+
 # File Uploader Web Application
 
 This file uploader web application is a comprehensive demonstration of full-stack web development, seamlessly integrating both front-end and back-end components. The backend is powered by RESTful APIs to ensure efficient data handling and integration. The application also showcases full CRUD (Create, Read, Update, Delete) functionality, allowing users to manage uploaded files, as well as a search feature to quickly find specific records.
