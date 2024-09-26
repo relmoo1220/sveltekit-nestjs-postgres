@@ -6,10 +6,10 @@ To further demonstrate modern development practices, the application is containe
 
 ### Technology Stack
 
-- ![SvelteKit](https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=svelte&logoColor=white) SvelteKit
-- ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white) NestJS
-- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white) PostgreSQL
-- ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) Docker
+- ![SvelteKit](https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
+- ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+- ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 ### Installation
 
@@ -18,6 +18,12 @@ You can install and run the web application just by using the docker command (as
 ```
 docker-compose up --build
 ```
+
+> [!NOTE]
+> Please verify that all Docker components have successfully loaded before testing the application.
+
+> [!NOTE]
+> In the root directory, a data.csv file is included for testing the CSV file upload feature.
 
 ### Frontend
 
